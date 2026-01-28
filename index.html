@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>オンライン説明会 | BeSmartTokyo経理即戦力コース</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #e05789;
+            --primary-light: #ff6b9d;
+            --accent: #ff8c42;
+            --bg-color: #fafbfc;
+            --card-bg: #ffffff;
+            --text-dark: #2d3748;
+            --text-muted: #718096;
+            --border-light: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', sans-serif;
+            background: var(--bg-color);
+            color: var(--text-dark);
+            min-height: 100vh;
+            line-height: 1.8;
+        }
+
+        /* Decorative background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            right: -30%;
+            width: 80%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(224, 87, 137, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        body::after {
+            content: '';
+            position: fixed;
+            bottom: -30%;
+            left: -20%;
+            width: 60%;
+            height: 80%;
+            background: radial-gradient(circle, rgba(255, 140, 66, 0.06) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .brand-tag {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--primary);
+            letter-spacing: 0.05em;
+            margin-bottom: 0.75rem;
+        }
+
+        .header h1 {
+            font-size: clamp(1.75rem, 5vw, 2.5rem);
+            font-weight: 900;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+
+        .header h1 .highlight {
+            color: var(--primary);
+        }
+
+        .header .subtitle {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        /* Live indicator */
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-light));
+            color: #fff;
+            padding: 0.5rem 1.25rem;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 15px rgba(224, 87, 137, 0.3);
+        }
+
+        .live-indicator::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #fff;
+            border-radius: 50%;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.6; transform: scale(0.9); }
+        }
+
+        /* Video section */
+        .video-section {
+            background: var(--card-bg);
+            border-radius: 1.5rem;
+            overflow: hidden;
+            box-shadow: 
+                0 4px 6px rgba(0, 0, 0, 0.02),
+                0 10px 40px rgba(224, 87, 137, 0.1);
+            margin-bottom: 1.5rem;
+            border: 1px solid var(--border-light);
+        }
+
+        .registration-area {
+            padding: 2rem;
+            background: linear-gradient(135deg, #f8f9fa 0%, #fff 100%);
+            min-height: 300px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .registration-area .demio-embed-registration {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        /* Session info */
+        .session-info {
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            border-top: 1px solid var(--border-light);
+        }
+
+        .session-info h2 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .session-meta {
+            display: flex;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 0.875rem;
+        }
+
+        .session-meta span {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        /* Curriculum Section */
+        .curriculum-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .curriculum-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .curriculum-header h2 {
+            font-size: clamp(1.25rem, 4vw, 1.75rem);
+            font-weight: 900;
+            color: var(--text-dark);
+            line-height: 1.5;
+            margin-bottom: 1rem;
+        }
+
+        .curriculum-header h2 .highlight {
+            color: var(--primary);
+        }
+
+        .curriculum-header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        .curriculum-header p .accent {
+            color: var(--primary);
+            font-weight: 500;
+        }
+
+        .curriculum-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .curriculum-card {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            overflow: hidden;
+            border: 1px solid var(--border-light);
+            transition: all 0.3s ease;
+        }
+
+        .curriculum-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .curriculum-card.featured {
+            border-color: var(--primary);
+            box-shadow: 0 4px 20px rgba(224, 87, 137, 0.15);
+        }
+
+        .card-image {
+            position: relative;
+            height: 120px;
+            display: flex;
+            align-items: flex-end;
+            padding: 1rem;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image.basics {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-image: url('images/basics.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image.practice {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            background-image: url('images/practice.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image.tax {
+            background: linear-gradient(135deg, #fc4a1a 0%, #f7b733 100%);
+            background-image: url('images/tax.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image.dx {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            background-image: url('images/dx.jpg');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .card-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.5), transparent);
+        }
+
+        .card-title {
+            position: relative;
+            color: #fff;
+            font-size: 0.875rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+        }
+
+        .card-badge {
+            position: absolute;
+            top: 0.75rem;
+            right: 0.75rem;
+            background: var(--primary);
+            color: #fff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            letter-spacing: 0.03em;
+        }
+
+        .card-content {
+            padding: 1rem;
+        }
+
+        .card-content h3 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+        }
+
+        .card-content ul {
+            list-style: none;
+        }
+
+        .card-content li {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            padding-left: 1rem;
+            position: relative;
+            margin-bottom: 0.4rem;
+        }
+
+        .card-content li::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 6px;
+            height: 6px;
+            background: var(--primary);
+            border-radius: 50%;
+        }
+
+        /* LINE CTA */
+        .line-cta {
+            background: linear-gradient(135deg, #06c755, #00b341);
+            border-radius: 1rem;
+            padding: 1.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+            box-shadow: 0 4px 20px rgba(6, 199, 85, 0.25);
+        }
+
+        .line-cta-content h3 {
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .line-cta-content p {
+            color: rgba(255, 255, 255, 0.9);
+            font-size: 0.8rem;
+        }
+
+        .line-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: #fff;
+            color: #06c755;
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .line-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        .line-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 2rem 0 1rem;
+            color: var(--text-muted);
+            font-size: 0.75rem;
+        }
+
+        .footer a {
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .container {
+                padding: 1.5rem 1rem;
+            }
+
+            .session-info {
+                padding: 1rem 1.25rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .line-cta {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .line-cta-content {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand-tag">Be Smart Tokyo 採択プロジェクト</div>
+            <div class="live-indicator" id="status-badge" style="display: none;"></div>
+            <h1>経理即戦力コース<br><span class="highlight">オンライン説明会</span></h1>
+            <p class="subtitle">未経験から90日で「即戦力」を目指す</p>
+        </header>
+
+        <!-- Video Section -->
+        <section class="video-section">
+            <div class="registration-area">
+                <!-- Demio Popover Embed -->
+                <script async id="demio-js" type="text/javascript" src="https://cdn.demio.com/production/dashboard/embed.bundle.js"></script>
+                <span class="demio-embed-registration" 
+                    data-hash="Ae95KyHQHGGpJqJV" 
+                    data-api="api/v1" 
+                    data-base-uri="https://my.demio.com/" 
+                    data-popover="true" 
+                    data-button-width="100%" 
+                    data-button-size="medium" 
+                    data-button-text="参加する" 
+                    data-link-text="My Popover Link" 
+                    data-color="#e05789" 
+                    data-text="参加する">
+                </span>
+            </div>
+            <div class="session-info">
+                <h2>第4期生募集 説明会</h2>
+                <div class="session-meta">
+                    <span>⏱️ 約60分</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Curriculum Section -->
+        <section class="curriculum-section">
+            <div class="curriculum-header">
+                <h2>実務で「使える」スキルを網羅する<br><span class="highlight">3ヶ月のカリキュラム</span></h2>
+                <p>SlackやZoomを活用した<span class="accent">「場所を選ばない働き方」</span>の実践そのものがカリキュラムです。</p>
+            </div>
+            <div class="curriculum-grid">
+                <div class="curriculum-card">
+                    <div class="card-image basics">
+                        <span class="card-title">BASICS</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>経理・財務の基礎</h3>
+                        <ul>
+                            <li>経理業務の全体像</li>
+                            <li>仕訳の基本ルール</li>
+                            <li>PL/BSの理解</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="curriculum-card featured">
+                    <div class="card-image practice">
+                        <span class="card-badge">CORE SKILL</span>
+                        <span class="card-title">PRACTICE</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>freee実務演習</h3>
+                        <ul>
+                            <li>freeeの実操作</li>
+                            <li>効率的な入力法</li>
+                            <li>月次決算の実践</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="curriculum-card">
+                    <div class="card-image tax">
+                        <span class="card-title">TAX & SALARY</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>給与計算・税務</h3>
+                        <ul>
+                            <li>給与計算フロー</li>
+                            <li>社会保険の基礎</li>
+                            <li>年末調整の概要</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="curriculum-card">
+                    <div class="card-image dx">
+                        <span class="card-title">DX TOOLS</span>
+                    </div>
+                    <div class="card-content">
+                        <h3>DXスキル・資格</h3>
+                        <ul>
+                            <li>Excel/スプシ活用</li>
+                            <li>Slack/Zoom</li>
+                            <li>簿記3級対策</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- LINE CTA -->
+        <section class="line-cta">
+            <div class="line-cta-content">
+                <h3>💬 ご質問はLINEで受付中</h3>
+                <p>説明会の内容についてお気軽にご質問ください</p>
+            </div>
+            <a href="YOUR_LINE_URL_HERE" class="line-button">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/>
+                </svg>
+                LINEで質問する
+            </a>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>© 2026 BeSmartTokyo All rights reserved.</p>
+        </footer>
+    </div>
+
+    <script>
+        // 開催スケジュール（時間は分単位で指定）
+        const SCHEDULE = {
+            // 月〜金 (1-5): 12:00〜13:00, 20:00〜21:00
+            weekday: [
+                { start: 12 * 60, end: 13 * 60 },  // 12:00-13:00
+                { start: 20 * 60, end: 21 * 60 }   // 20:00-21:00
+            ],
+            // 土日 (0, 6): 10:00〜11:00, 20:00〜21:00
+            weekend: [
+                { start: 10 * 60, end: 11 * 60 },  // 10:00-11:00
+                { start: 20 * 60, end: 21 * 60 }   // 20:00-21:00
+            ]
+        };
+
+        const BEFORE_MINUTES = 15; // 開始何分前から「まもなく開始」
+
+        function getStatus() {
+            const now = new Date();
+            const dayOfWeek = now.getDay(); // 0=日, 1=月, ..., 6=土
+            const currentMinutes = now.getHours() * 60 + now.getMinutes();
+
+            // 曜日に応じたスケジュールを取得
+            const isWeekend = (dayOfWeek === 0 || dayOfWeek === 6);
+            const todaySchedule = isWeekend ? SCHEDULE.weekend : SCHEDULE.weekday;
+
+            for (const session of todaySchedule) {
+                const beforeStart = session.start - BEFORE_MINUTES;
+
+                // 開催中
+                if (currentMinutes >= session.start && currentMinutes < session.end) {
+                    return { status: 'live', text: '開催中' };
+                }
+                // まもなく開始（15分前〜開始）
+                if (currentMinutes >= beforeStart && currentMinutes < session.start) {
+                    return { status: 'soon', text: 'まもなく開始' };
+                }
+            }
+
+            // それ以外
+            return { status: 'none', text: '' };
+        }
+
+        function updateBadge() {
+            const badge = document.getElementById('status-badge');
+            const { status, text } = getStatus();
+
+            if (status === 'none') {
+                badge.style.display = 'none';
+            } else {
+                badge.style.display = 'inline-flex';
+                badge.textContent = text;
+                
+                // スタイル切り替え
+                if (status === 'live') {
+                    badge.style.background = 'linear-gradient(135deg, #e05789, #ff6b9d)';
+                } else {
+                    badge.style.background = 'linear-gradient(135deg, #f59e0b, #fbbf24)';
+                }
+            }
+        }
+
+        // 初回実行 & 1分ごとに更新
+        updateBadge();
+        setInterval(updateBadge, 60000);
+    </script>
+</body>
+</html>

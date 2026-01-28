@@ -1,0 +1,14 @@
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.demio.com https://my.demio.com; style-src 'self' 'unsafe-inline' https://cdn.demio.com https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; frame-src https://my.demio.com; connect-src 'self' https://my.demio.com https://api.demio.com; img-src 'self' data: https:;"
+        }
+      ]
+    }
+  ]
+}
+
